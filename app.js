@@ -1,21 +1,17 @@
-import fs from "fs";
-import path from "path";
+import express from "express";
+import process from "process";
+import dotenv from "dotenv";
 
+dotenv.config();
 
-const inputPath = path.resolve("input.txt");
-const outputPath = path.resolve("output.txt");
+const app = express();
+const port = process.env.PORT;
+const host = process.env.HOST;
 
-const readableStream = fs.createReadStream(inputPath,{highWaterMark:15})
-
-const writableStream = fs.createWriteStream(outputPath)
-
-readableStream.on("data", (chunk) => {
-  writableStream.write(chunk);
-  console.log(chunk.toString());
+app.get("/", (req,res) =>{
+  res.send("Mas Baji Ganteng");
 });
 
-writableStream.on("end", () => {
-  writableStream.end();
-
-  console.log("Selesai! File berhasil digandakan tanpa membuat RAM jebol.");
+app.listen(port, () => {
+  console.log(`Berjalan di ${host}${port}`)
 });
