@@ -1,0 +1,1 @@
+Halo Tuan Baji, ini adalah berkas teks berukuran besar yang akan kita baca menggunakan teknik Readable Stream di Node.js. Kita memotong data ini menjadi chunk-chunk kecil agar memori RAM server kita tidak jebol. Semangat belajar Backend!

@@ -1,21 +1,21 @@
-import { EventEmitter } from "events";
+import fs from "fs";
+import path from "path";
 
-const emitter = new EventEmitter();
 
-const addBookListener = (bookName) => {
-  console.log(`Buku telah ditambahkan: ${bookName}`)
-};
+const inputPath = path.resolve("input.txt");
+const outputPath = path.resolve("output.txt");
 
-const updateStatistic = (bookName) => {
-  console.log(`Buku terupdate di statistik ${bookName}`)
-};
+const readableStream = fs.createReadStream(inputPath,{highWaterMark:15})
 
-const writeLog = (bookName) => {
-  console.log(`Buku tercatat di statistik ${bookName}`)
-};
+const writableStream = fs.createWriteStream(outputPath)
 
-emitter.on("addBook", addBookListener);
-emitter.on("addBook", updateStatistic);
-emitter.on("addBook", writeLog);
+readableStream.on("data", (chunk) => {
+  writableStream.write(chunk);
+  console.log(chunk.toString());
+});
 
-emitter.emit("addBook","Buku Sakral")
+writableStream.on("end", () => {
+  writableStream.end();
+
+  console.log("Selesai! File berhasil digandakan tanpa membuat RAM jebol.");
+});
