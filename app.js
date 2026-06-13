@@ -1,13 +1,21 @@
-import { eventNames, listeners } from "process";
-import Bookshelf from "./day-4/bookData.js";
 import { EventEmitter } from "events";
 
-const myEmitter = new EventEmitter();
+const emitter = new EventEmitter();
 
-const bookAddedListener = (bookName) => {
-  console.log(`Notifikasi Industri: Buku ${bookName} berhasil di simpan di Bookshelf`);
+const addBookListener = (bookName) => {
+  console.log(`Buku telah ditambahkan: ${bookName}`)
 };
 
-on(eventNames, listeners)
+const updateStatistic = (bookName) => {
+  console.log(`Buku terupdate di statistik ${bookName}`)
+};
 
-.emit(eventNames, data);
+const writeLog = (bookName) => {
+  console.log(`Buku tercatat di statistik ${bookName}`)
+};
+
+emitter.on("addBook", addBookListener);
+emitter.on("addBook", updateStatistic);
+emitter.on("addBook", writeLog);
+
+emitter.emit("addBook","Buku Sakral")
